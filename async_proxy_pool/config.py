@@ -7,7 +7,7 @@ REQUEST_TIMEOUT = 15
 REQUEST_DELAY = 0
 
 # redis 地址
-REDIS_HOST = "localhost"
+REDIS_HOST = "fervent_snyder"
 # redis 端口
 REDIS_PORT = 6379
 # redis 密码
@@ -25,7 +25,7 @@ MIN_SCORE = 0
 INIT_SCORE = 9
 
 # server web host
-SERVER_HOST = "localhost"
+SERVER_HOST = "0.0.0.0"
 # server web port
 SERVER_PORT = 3289
 # 是否开启日志记录
