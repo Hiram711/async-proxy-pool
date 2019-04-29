@@ -36,7 +36,7 @@ VALIDATOR_BATCH_COUNT = 256
 # 校验器测试网站，可以定向改为自己想爬取的网站，如新浪，知乎等
 VALIDATOR_BASE_URL = "http://baidu.com"
 # 校验器循环周期（分钟）
-VALIDATOR_RUN_CYCLE = 5
+VALIDATOR_RUN_CYCLE = 3
 
 # 爬取器循环周期（分钟）
 CRAWLER_RUN_CYCLE = 30
