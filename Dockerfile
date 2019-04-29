@@ -11,7 +11,6 @@ COPY server_sanic.py /myapp/
 COPY async_proxy_pool /myapp/async_proxy_pool/
 COPY test /myapp/test/
 
-RUN pip install selenium==3.8.0
 RUN pip install -r requirements.txt
 RUN chmod +x entrypoint.sh
 
