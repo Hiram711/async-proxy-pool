@@ -4,6 +4,7 @@ MAINTAINER Hiram <jie.zhang8@luckyair.net>
 RUN mkdir /myapp
 WORKDIR /myapp
 COPY entrypoint.sh /myapp/
+COPY run.py /myapp/
 COPY requirements.txt /myapp/
 COPY client.py /myapp/
 COPY server_flask.py /myapp/
