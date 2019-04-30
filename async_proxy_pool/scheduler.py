@@ -20,13 +20,13 @@ class Scheduler:
     def crawler_task(cycle=CRAWLER_RUN_CYCLE):
         while True:
             crawler.run()
-            time.sleep(cycle)
+            time.sleep(cycle*60)
 
     @staticmethod
     def validator_task(cycle=VALIDATOR_RUN_CYCLE):
         while True:
             validator.run()
-            time.sleep(cycle)
+            time.sleep(cycle*60)
 
     def run(self):
         api_process = Process(target=Scheduler.api)
