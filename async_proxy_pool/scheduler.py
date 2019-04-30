@@ -2,29 +2,36 @@
 # coding=utf-8
 
 import time
+from multiprocessing import Process
 
-import schedule
-
+from async_proxy_pool.config import SERVER_HOST, SERVER_PORT, SERVER_ACCESS_LOG
+from async_proxy_pool.webapi_sanic import app
 from .config import CRAWLER_RUN_CYCLE, VALIDATOR_RUN_CYCLE
-
 from .crawler import crawler
 from .validator import validator
-from .logger import logger
 
 
-def run_schedule():
-    """
-    启动客户端
-    """
-    # 启动收集器
-    schedule.every(CRAWLER_RUN_CYCLE).minutes.do(crawler.run).run()
-    # 启动验证器
-    schedule.every(VALIDATOR_RUN_CYCLE).minutes.do(validator.run).run()
+class Scheduler:
+    @staticmethod
+    def api():
+        app.run(host=SERVER_HOST, port=SERVER_PORT, access_log=SERVER_ACCESS_LOG)
 
-    while True:
-        try:
-            schedule.run_pending()
-            time.sleep(1)
-        except KeyboardInterrupt:
-            logger.info("You have canceled all jobs")
-            return
+    @staticmethod
+    def crawler_task(cycle=CRAWLER_RUN_CYCLE):
+        while True:
+            crawler.run()
+            time.sleep(cycle)
+
+    @staticmethod
+    def validator_task(cycle=VALIDATOR_RUN_CYCLE):
+        while True:
+            validator.run()
+            time.sleep(cycle)
+
+    def run(self):
+        api_process = Process(target=Scheduler.api)
+        api_process.start()
+        crawler_process = Process(target=Scheduler.crawler_task)
+        crawler_process.start()
+        validator_process = Process(target=Scheduler.validator_task)
+        validator_process.start()
