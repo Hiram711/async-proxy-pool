@@ -33,5 +33,6 @@ def requests(url, sleep=REQUEST_DELAY):
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     html = loop.run_until_complete(asyncio.gather(_get_page(url, sleep)))
+    loop.close()
     if html:
         return "".join(html)
